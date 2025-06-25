@@ -1,57 +1,60 @@
-import { Text, TouchableOpacity, View } from "react-native";
-import { useState } from "react";
+// Login.jsx
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import sharedStyles from '../../constants/sharedStyles.js';
 import { styles } from './login.style.js';
-import Logo from "../../components/logo/logo.jsx";
-import Input from "../../components/input/input.jsx";
-import Button from "../../components/button/button.jsx";
-
-
+import Logo from '../../components/logo/logo.jsx';
+import Input from '../../components/input/input.jsx';
+import Button from '../../components/button/button.jsx';
 
 function Login(props) {
-    const [email, setEmail] = useState('')
-    const [pass, setPass] = useState('')
+    // Estados dos campos
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
 
-    function processlogin() {
-        props.navigation.navigate('Home')
-        console.log(email, pass)
+    // Definição “declarativa” dos campos
+    const fields = [
+        { key: 'email', label: 'E-mail', value: email, setter: setEmail, password: false },
+        { key: 'pass', label: 'Senha', value: pass, setter: setPass, password: true },
+    ];
+
+    function processLogin() {
+
+        props.navigation.navigate('Home');
     }
 
-    return <View style={styles.container} >
+    return (
+        <View style={sharedStyles.container}>
+            <Logo description="Acesse sua conta." />
 
-        <Logo description='Acesse sua conta.' />
+            <View style={styles.form}>
+                {fields.map(({ key, label, value, setter, password }) => (
+                    <View key={key} style={styles.formBox}>
+                        <Input
+                            label={label}
+                            password={password}
+                            value={value}
+                            onChangeText={setter}
+                        />
+                    </View>
+                ))}
 
-        <View style={styles.form}>
-            <View style={styles.formBox}>
-                <Input label='E-mail' onChangeText={(email) => setEmail(email)} value={email} />
+                <Button txt="Entrar" onPress={processLogin} />
             </View>
-            <View style={styles.formBox}>
-                <Input label='Senha' password={true} onChangeText={(pass) => setPass(pass)} value={pass} />
-            </View>
-
-            <Button txt='Entrar' onPress={processlogin} />
-
-        </View>
 
 
-
-        <View>
             <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
                 <Text style={styles.footerTxt}>Criar uma conta.</Text>
             </TouchableOpacity>
 
         </View>
-    </View>
-
-
+    );
 }
 
 export default Login;
 
-
-// nota "Usuário digita no TextInput.
-
-// onChangeText do Input é acionado.
-
-// Input chama a função recebida por props.onChangeText(text).
-
-// Essa função atualiza o estado no componente Login."
+// nota:
+// 1. Usuário digita no TextInput.
+// 2. onChangeText do Input é acionado.
+// 3. Input chama a função recebida por props.onChangeText(text).
+// 4. Essa função atualiza o estado no componente Login.

@@ -1,74 +1,79 @@
-import { ScrollView, View } from "react-native";
-import { useState } from "react";
+// Register2.jsx
+import { useState } from 'react';
+import { ScrollView, View } from 'react-native';
+import sharedStyles from '../../constants/sharedStyles.js';
 import { styles } from './register2.style.js';
-import Logo from "../../components/logo/logo.jsx";
-import Input from "../../components/input/input.jsx";
-import Button from "../../components/button/button.jsx";
-
+import Logo from '../../components/logo/logo.jsx';
+import Input from '../../components/input/input.jsx';
+import Button from '../../components/button/button.jsx';
 
 function Register2(props) {
+    // Estados dos campos
+    const [cpf, setCpf] = useState('');
+    const [cep, setCep] = useState('');
+    const [city, setCity] = useState('');
+    const [uf, setUf] = useState('');
+    const [district, setDistrict] = useState('');
+    const [street, setStreet] = useState('');
+    const [number, setNumber] = useState('');
 
-    const [cpf, setCpf] = useState('')
-    const [cep, setCep] = useState('')
-    const [city, setCity] = useState('')
-    const [uf, setUf] = useState('')
-    const [district, setDistrict] = useState('')
-    const [street, setStreet] = useState('')
-    const [number, setNumber] = useState('')
+    // Agrupamento dos campos para renderização dinâmica
+    const groups = [
+        [{ key: 'cpf', label: 'CPF', value: cpf, setter: setCpf }],
+        [{ key: 'cep', label: 'CEP', value: cep, setter: setCep }],
+        [
+            { key: 'city', label: 'Cidade', value: city, setter: setCity, style: 'formBox_2fr' },
+            { key: 'uf', label: 'UF', value: uf, setter: setUf, style: 'formBox_1fr' },
+        ],
+        [{ key: 'district', label: 'Bairro', value: district, setter: setDistrict }],
+        [
+            { key: 'street', label: 'Rua', value: street, setter: setStreet, style: 'formBox_2fr' },
+            { key: 'number', label: 'Numero', value: number, setter: setNumber, style: 'formBox_1fr' },
+        ],
+    ];
 
+    return (
+        <View style={sharedStyles.container}>
+            <ScrollView contentContainerStyle={styles.scrollContent}>
+                <Logo description="Criar uma conta." />
 
+                <View style={styles.form}>
+                    {groups.map((group, gi) => (
+                        group.length > 1
+                            // splitFormBox: dois inputs lado a lado
+                            ? (
+                                <View key={gi} style={styles.splitFormBox}>
+                                    {group.map(field => (
+                                        <View key={field.key} style={styles[field.style]}>
+                                            <Input
+                                                label={field.label}
+                                                value={field.value}
+                                                onChangeText={field.setter}
+                                            />
+                                        </View>
+                                    ))}
+                                </View>
+                            )
+                            // formBox: input em linha única
+                            : (
+                                <View key={gi} style={styles.formBox}>
+                                    <Input
+                                        label={group[0].label}
+                                        value={group[0].value}
+                                        onChangeText={group[0].setter}
+                                    />
+                                </View>
+                            )
+                    ))}
 
-    return <View style={styles.container} >
-
-        <ScrollView>
-            <Logo description='Criar uma conta.' />
-
-            <View style={styles.form}>
-
-                <View style={styles.formBox}>
-                    <Input label='CPF' onChangeText={(cpf) => setCpf(cpf)} value={cpf} />
+                    <Button
+                        txt="Concluir"
+                        onPress={() => props.navigation.navigate('Home')}
+                    />
                 </View>
-
-                <View style={styles.formBox}>
-                    <Input label='CEP' onChangeText={(cep) => setCep(cep)} value={cep} />
-                </View>
-
-                <View style={styles.splitFormBox}>
-                    <View style={styles.formBox_2fr}>
-                        <Input label='Cidade' onChangeText={(city) => setCity(city)} value={city} />
-                    </View>
-                    <View style={styles.formBox_1fr}>
-                        <Input label='UF' onChangeText={(uf) => setUf(uf)} value={uf} />
-                    </View>
-                </View>
-
-                <View style={styles.formBox}>
-                    <Input label='Bairro' onChangeText={(district) => setDistrict(district)} value={district} />
-                </View>
-
-                <View style={styles.splitFormBox}>
-                    <View style={styles.formBox_2fr}>
-                        <Input label='Rua' onChangeText={(street) => setStreet(street)} value={street} />
-                    </View>
-                    <View style={styles.formBox_1fr}>
-                        <Input label='Numero' onChangeText={(number) => setNumber(number)} value={number} />
-                    </View>
-                </View>
-
-
-                <Button txt='Concluir' onPress={() => props.navigation.navigate('Home')} />
-
-            </View>
-
-
-
-        </ScrollView>
-    </View>
-
-
+            </ScrollView>
+        </View>
+    );
 }
 
 export default Register2;
-
-
-// lembra de colocar isso tudo em um for 

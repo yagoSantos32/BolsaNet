@@ -11,20 +11,22 @@ export const styles = {
 
 
     }),
-    logo: {
-        width: 110,
-        height: 130,
+    logo: (small) => ({
+        ...(small ? {
+          
+            width: 35,
+            height: 40,
+        } : {
+            width: 110,
+            height: 130,
+        })
 
-    },
-    logoSm: {
-        width: 35,
-        height: 40,
 
-    },
+    }),
     title: {
         color: colors.text_base,
         fontSize: font_size.md,
-        margin: 20,
+        margin: 15,
         textAlign: 'center',
     }
 }

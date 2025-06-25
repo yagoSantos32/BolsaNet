@@ -5,7 +5,7 @@ import { styles } from "./logo.style.js";
 
 function Logo(props) {
     return <View style={styles.container(props.direction)}>
-        <Image style={props.small ? styles.logoSm : styles.logo} source={icons.logo} />
+        <Image style={styles.logo(props.small)} source={icons.logo} />
         {
             props.description && <Text style={styles.title}>{props.description}</Text>
         }

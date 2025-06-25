@@ -3,11 +3,7 @@ import { colors, font_size } from '../../constants/theme.js';
 export const styles = {
 
     boxBtn: {
-
-        alignItems: 'center',
-
-
-
+        alignItems: 'center'
     },
     btn: {
         width: 200,

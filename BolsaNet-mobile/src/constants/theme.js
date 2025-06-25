@@ -8,12 +8,14 @@ const colors = {
     // gerais
     color_base: '#f9f9f9',
     text_base: '#000',
-
-    bubble: '#F0E6F4',
+    // conversas
+    bubbleReceived: '#F0E6F4',
+    bubbleSent: '#E7CCF8',
 
 }
 
 const font_size = {
+    xsm: 15,
     sm: 20,
     md: 24,
     lg: 32,

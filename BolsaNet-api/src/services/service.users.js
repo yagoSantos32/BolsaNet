@@ -12,7 +12,7 @@ async function Register(userData){
     
   
     const users= await repositoryUser.Register(fullName,email,pass,CPF,CEP,city,UF,district,street,number,admin,status);
-    
+  
 
     return users;
 }

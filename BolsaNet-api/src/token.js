@@ -37,7 +37,7 @@ function ValidateJWT(req, res, next){
 
 function onlyAdmin(req, res, next){
     
-      if (req.typeUser !== "admin" && req.typeUser !== "1") {
+      if (req.typeUser !== 1) {
         return res.status(403).json({ error: "Acesso restrito a administradores" });
     }
     next();
