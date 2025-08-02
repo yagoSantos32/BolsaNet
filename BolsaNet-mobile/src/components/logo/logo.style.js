@@ -1,4 +1,4 @@
-import { colors, font_size } from "../../constants/theme.js";
+import { colors, font_size } from '../../Constants/theme.js';
 
 export const styles = {
     container: (dir) => ({
@@ -26,7 +26,7 @@ export const styles = {
     title: {
         color: colors.text_base,
         fontSize: font_size.md,
-        margin: 15,
+        margin: 10,
         textAlign: 'center',
     }
 }

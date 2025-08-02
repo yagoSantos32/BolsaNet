@@ -2,10 +2,10 @@
 export const styles = {
 
     form: {
-        marginTop: 15
+        marginTop: 40
     },
     formBox: {
-        marginBottom: 5
+        marginBottom: 15
     },
 
 

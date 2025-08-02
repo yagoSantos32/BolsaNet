@@ -1,4 +1,4 @@
-import { font_size } from "../../constants/theme.js";
+import { font_size } from '../../Constants/theme.js';
 export const styles = {
 
     form: {

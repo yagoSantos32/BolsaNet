@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from './theme';
+import { colors} from './theme';
 
 const sharedStyles = StyleSheet.create({
   container: {
@@ -7,6 +7,7 @@ const sharedStyles = StyleSheet.create({
     justifyContent: 'center',
     padding: 40,
     backgroundColor: colors.color_base,
+  
   },
 });
 

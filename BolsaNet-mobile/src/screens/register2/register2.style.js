@@ -2,10 +2,10 @@
 export const styles = {
 
     form: {
-        marginTop: 15
+        marginTop: 5
     },
     formBox: {
-        marginBottom: 5
+        marginBottom: 2
     },
     splitFormBox: {
         flexDirection: 'row',
@@ -13,13 +13,11 @@ export const styles = {
 
     formBox_2fr: {
         width: '70%',
-        marginBottom: 5,
         paddingRight: 6
 
     },
     formBox_1fr: {
         width: '30%',
-        marginBottom: 5,
 
     },
 

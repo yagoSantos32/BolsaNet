@@ -1,5 +1,5 @@
 
-import { colors, font_size } from '../../constants/theme.js';
+import { colors, font_size } from '../../Constants/theme.js';
 export const styles = {
 
     boxBtn: {
@@ -10,15 +10,16 @@ export const styles = {
         borderRadius: 30,
         padding: 10,
         margin: 30,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.btnPrimary,
 
 
     },
 
     text: {
-        color: colors.text_primary,
+        color: colors.btnText,
         textAlign: 'center',
         fontSize: font_size.lg,
+        
 
     }
 };

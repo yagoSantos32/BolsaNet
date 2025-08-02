@@ -1,11 +1,11 @@
 // Login.jsx
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useState } from 'react';
-import sharedStyles from '../../constants/sharedStyles.js';
+import sharedStyles from '../../Constants/sharedStyles.js';
 import { styles } from './login.style.js';
-import Logo from '../../components/logo/logo.jsx';
-import Input from '../../components/input/input.jsx';
-import Button from '../../components/button/button.jsx';
+import Logo from '../../components/Logo/Logo.jsx';
+import Input from '../../components/Input/Input.jsx';
+import Button from '../../components/Button/Button.jsx';
 
 function Login(props) {
     // Estados dos campos
@@ -25,7 +25,7 @@ function Login(props) {
 
     return (
         <View style={sharedStyles.container}>
-            <Logo description="Acesse sua conta." />
+            <Logo description='Acesse sua conta.' />
 
             <View style={styles.form}>
                 {fields.map(({ key, label, value, setter, password }) => (
@@ -35,11 +35,12 @@ function Login(props) {
                             password={password}
                             value={value}
                             onChangeText={setter}
+                           
                         />
                     </View>
                 ))}
 
-                <Button txt="Entrar" onPress={processLogin} />
+                <Button txt='Entrar' onPress={processLogin} />
             </View>
 
 

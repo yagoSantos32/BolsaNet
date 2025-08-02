@@ -1,16 +1,21 @@
 const colors = {
 
     // destaques
-    primary: '#B364D3',
-    text_primary: '#fff',
-    second: '#E7CFF1',
-
+    primary: '#9464d3ff',
+    second: '#d9cff1ff',
+    
     // gerais
     color_base: '#f9f9f9',
     text_base: '#000',
     // conversas
     bubbleReceived: '#F0E6F4',
     bubbleSent: '#E7CCF8',
+     //botoes
+    btnPrimary: '#B364D3',
+    // btnSecond: '#7948b1ff',
+    btnText: '#fff',
+
+    
 
 }
 
@@ -20,6 +25,7 @@ const font_size = {
     md: 24,
     lg: 32,
 }
+
 
 
 

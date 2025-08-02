@@ -1,5 +1,5 @@
 
-import { colors, font_size } from "../../constants/theme"
+import { colors, font_size } from '../../Constants/theme'
 
 export const styles = {
     container: (sent) => ({
@@ -17,7 +17,6 @@ export const styles = {
     }),
     box: (sent) => ({
 
-
         justifyContent: 'center',
         flexDirection: sent ? 'row' : 'row-reverse',
     }),
@@ -27,7 +26,9 @@ export const styles = {
     text: {
         overflow: 'hidden',
         margin: 5,
-        fontSize: font_size.xsm
+        fontSize: font_size.xsm,
+
+  
     }
 
 

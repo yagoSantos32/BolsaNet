@@ -1,6 +1,6 @@
-import { Image, Text, View } from "react-native";
-import icons from "../../constants/icons.js";
-import { styles } from "./logo.style.js";
+import { Image, Text, View } from 'react-native';
+import icons from '../../Constants/icons.js';
+import { styles } from './logo.style.js';
 
 
 function Logo(props) {

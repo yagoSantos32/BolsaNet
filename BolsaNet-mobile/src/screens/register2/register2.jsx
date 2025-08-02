@@ -1,11 +1,11 @@
 // Register2.jsx
 import { useState } from 'react';
 import { ScrollView, View } from 'react-native';
-import sharedStyles from '../../constants/sharedStyles.js';
+import sharedStyles from '../../Constants/sharedStyles.js';
 import { styles } from './register2.style.js';
-import Logo from '../../components/logo/logo.jsx';
-import Input from '../../components/input/input.jsx';
-import Button from '../../components/button/button.jsx';
+import Logo from '../../components/Logo/Logo.jsx';
+import Input from '../../components/Input/Input.jsx';
+import Button from '../../components/Button/Button.jsx';
 
 function Register2(props) {
     // Estados dos campos
@@ -34,8 +34,8 @@ function Register2(props) {
 
     return (
         <View style={sharedStyles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
-                <Logo description="Criar uma conta." />
+            <ScrollView showsVerticalScrollIndicator={false} >
+                <Logo description='Criar uma conta.' />
 
                 <View style={styles.form}>
                     {groups.map((group, gi) => (
@@ -67,7 +67,7 @@ function Register2(props) {
                     ))}
 
                     <Button
-                        txt="Concluir"
+                        txt='Concluir'
                         onPress={() => props.navigation.navigate('Home')}
                     />
                 </View>

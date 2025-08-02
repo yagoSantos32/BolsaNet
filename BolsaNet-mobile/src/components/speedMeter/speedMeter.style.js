@@ -1,4 +1,4 @@
-import { colors, font_size } from '../../constants/theme';
+import { colors, font_size } from '../../Constants/theme';
 
 
 export const styles = {
