@@ -1,8 +1,12 @@
-// Login.jsx
-import { Text, TouchableOpacity, View } from 'react-native';
-import { useState } from 'react';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
+import { useContext, useEffect, useState } from 'react';
+import api from '../../Constants/api.js'
+import { LoadUser, SaveUser } from '../../storage/storage.user.js';
+import { AuthContext } from '../../Contexts/auth.js';
+
 import sharedStyles from '../../Constants/sharedStyles.js';
 import { styles } from './login.style.js';
+
 import Logo from '../../components/Logo/Logo.jsx';
 import Input from '../../components/Input/Input.jsx';
 import Button from '../../components/Button/Button.jsx';
@@ -10,37 +14,83 @@ import Button from '../../components/Button/Button.jsx';
 function Login(props) {
     // Estados dos campos
     const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const { setUser } = useContext(AuthContext)
+
+    async function processLogin() {
+        const user = {
+            email,
+            password,
+        };
+        const cleanedUser = Object.fromEntries(
+            Object.entries(user).map(([key, value]) =>
+                typeof value === "string" ? [key, value.trim()] : [key, value]
+            )
+        );
+
+        try {
+            setLoading(true);
+            const response = await api.post('/user/login', cleanedUser);
+            // salvar dados do usuario no storege local 
+            if (response.data) {
+                await SaveUser(response.data)
+                setUser(response.data)
+
+            }
+
+        } catch (error) {
+            setLoading(false);
+            await SaveUser({})
+            if (error.response?.data.error)
+                Alert.alert(error.response.data.error.toString());
+            else
+                Alert.alert("ocorreu um erro. tente novamente mais tarde");
+        }
+
+    };
+
+    async function loadDatas() {
+        try {
+            const user = await LoadUser()
+        if(user.token)  
+            setUser(user)
+        } catch (error) {
+            console.error('Erro ao carregar usuário:', error);
+        }
+        
+    }
+
+    useEffect(()=>{
+        loadDatas()
+    },[])
+
 
     // Definição “declarativa” dos campos
     const fields = [
         { key: 'email', label: 'E-mail', value: email, setter: setEmail, password: false },
-        { key: 'pass', label: 'Senha', value: pass, setter: setPass, password: true },
+        { key: 'pass', label: 'Senha', value: password, setter: setPassword, isPassword: true },
     ];
-
-    function processLogin() {
-
-        props.navigation.navigate('Home');
-    }
 
     return (
         <View style={sharedStyles.container}>
             <Logo description='Acesse sua conta.' />
 
             <View style={styles.form}>
-                {fields.map(({ key, label, value, setter, password }) => (
+                {fields.map(({ key, label, value, setter, isPassword }) => (
                     <View key={key} style={styles.formBox}>
                         <Input
                             label={label}
-                            password={password}
+                            isPassword={isPassword}
                             value={value}
                             onChangeText={setter}
-                           
+
                         />
                     </View>
                 ))}
 
-                <Button txt='Entrar' onPress={processLogin} />
+                <Button isLoading={loading} txt='Entrar' onPress={processLogin} />
             </View>
 
 

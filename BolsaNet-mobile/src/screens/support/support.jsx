@@ -37,7 +37,7 @@ function Support() {
 
                 </View>
 
-                <Button custom={{ width: 60, borderRadius: 10, padding: 5, margin: 3, backgroundColor: '#3b1468ff' }}
+                <Button custom={true}
                     onPress={() => processMessage()}
 
                     txt='>' />

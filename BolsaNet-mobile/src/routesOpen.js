@@ -10,14 +10,15 @@ import Register2 from './Screens/Register2/Register2.jsx';
 
 
 const Stack = createNativeStackNavigator();
-function Routes() {
+function RoutesOpen() {
     return <NavigationContainer>
         <Stack.Navigator >
 
             <Stack.Screen
+            
                 name='Login'
                 component={Login}
-                options={{ headerShown: false }}
+                options={{headerShown: false }}
             />
 
 
@@ -56,4 +57,4 @@ function Routes() {
     </NavigationContainer>
 
 }
-export default Routes;
+export default RoutesOpen;

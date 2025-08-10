@@ -8,10 +8,15 @@ import { colors, font_size } from '../../Constants/theme.js';
 import MainTabs from './MainTabs.jsx';
 import Documents from '../Documents/Documents.jsx';
 
+import { AuthContext } from '../../Contexts/auth.js';
+import { useContext } from 'react';
+
 
 const Drawer = createDrawerNavigator();
 
 function DrawerNav() {
+  
+const {user}=useContext(AuthContext)
   return (
     <Drawer.Navigator screenOptions={{
 
@@ -37,7 +42,7 @@ function DrawerNav() {
     }}>
 
       <Drawer.Screen name='inicio' component={MainTabs} />
-      <Drawer.Screen name='Yago' component={Documents} />
+      <Drawer.Screen name={user.fullName} component={Documents} />
       <Drawer.Screen name='Documentos pessoais' component={Documents} />
       <Drawer.Screen name='Documentos Escolares ' component={Documents} />
       <Drawer.Screen name='Oque é esse programa?' component={Documents} />

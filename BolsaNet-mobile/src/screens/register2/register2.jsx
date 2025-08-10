@@ -1,14 +1,18 @@
-// Register2.jsx
+import { Alert, ScrollView, View } from 'react-native';
 import { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import api from '../../Constants/api.js'
+
 import sharedStyles from '../../Constants/sharedStyles.js';
 import { styles } from './register2.style.js';
+
 import Logo from '../../components/Logo/Logo.jsx';
 import Input from '../../components/Input/Input.jsx';
 import Button from '../../components/Button/Button.jsx';
 
 function Register2(props) {
+    const { fullName, email, password } = props.route.params;
     // Estados dos campos
+
     const [cpf, setCpf] = useState('');
     const [cep, setCep] = useState('');
     const [city, setCity] = useState('');
@@ -16,6 +20,48 @@ function Register2(props) {
     const [district, setDistrict] = useState('');
     const [street, setStreet] = useState('');
     const [number, setNumber] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    async function processRegister() {
+        if (!cpf || !cep || !city || !uf || !district || !street || !number) {
+            Alert.alert("Por favor, preencha todos os campos.");
+            return;
+        };
+
+        const user = {
+            fullName,
+            email,
+            password,
+            cpf,
+            cep,
+            city,
+            uf,
+            district,
+            street,
+            number,
+            admin: 0,
+            status: "nao_solicitado"
+
+        };
+        const cleanedUser = Object.fromEntries(
+            Object.entries(user).map(([key, value]) =>
+                typeof value === 'string' ? [key, value.trim()] : [key, value]
+            )
+        );
+        try {
+            setLoading(true)
+            const response = await api.post('/user/register', [cleanedUser]);
+            Alert.alert("Foi");
+        } catch (error) {
+
+            setLoading(false)
+            if (error.response?.data.error)
+                Alert.alert(error.response.data.error.toString());
+            else
+                Alert.alert("ocorreu um erro. tente novamente mais tarde");
+        };
+
+    };
 
     // Agrupamento dos campos para renderização dinâmica
     const groups = [
@@ -38,11 +84,11 @@ function Register2(props) {
                 <Logo description='Criar uma conta.' />
 
                 <View style={styles.form}>
-                    {groups.map((group, gi) => (
+                    {groups.map((group, gindex) => (
                         group.length > 1
                             // splitFormBox: dois inputs lado a lado
                             ? (
-                                <View key={gi} style={styles.splitFormBox}>
+                                <View key={gindex} style={styles.splitFormBox}>
                                     {group.map(field => (
                                         <View key={field.key} style={styles[field.style]}>
                                             <Input
@@ -56,7 +102,7 @@ function Register2(props) {
                             )
                             // formBox: input em linha única
                             : (
-                                <View key={gi} style={styles.formBox}>
+                                <View key={gindex} style={styles.formBox}>
                                     <Input
                                         label={group[0].label}
                                         value={group[0].value}
@@ -68,7 +114,8 @@ function Register2(props) {
 
                     <Button
                         txt='Concluir'
-                        onPress={() => props.navigation.navigate('Home')}
+                        isLoading={loading}
+                        onPress={processRegister}
                     />
                 </View>
             </ScrollView>

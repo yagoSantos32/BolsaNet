@@ -1,47 +1,40 @@
 import serviceUsers from "../services/service.users.js";
-import jwt from "../token.js"
-async function List(req,res){
+
+async function Login(req, res) {
+  const { email, password } = req.body;
+  const user = await serviceUsers.Login({ email, password });
+  
+  if (!user || user.length === 0) {
+    return res.status(401).json({ error: "Email ou senha inválidos" });
+  }
+   return res.status(200).json(user);
+  
+
+};
+
+  async function Register(req, res) {
     try {
-        const users = await serviceUsers.List();
+      const user = await serviceUsers.Register(req.body);
+      if (user.error) {
+              return res.status(409).json(user); 
+          }
+      return res.status(200).json(user);
       
-        res.status(200).json(users);
-    } catch (err) {
-        res.status(500).json({error:err});
-    }
-}
-
-async function Login(req,res) {
-  const email=req.body.email;
-  const pass=req.body.pass;
-    // dados ficticios apenas para testes
-    if(email=='admin@gmail.com' && pass=='admin'){
-        res.status(200).json({
-            id_users:0,
-            email:'admin@gmail.com',
-            password:'admin',
-            token:jwt.CreateJWT(123,1),
-          
-        });
-    }
-    else{
-        res.status(401).json({resposta:"usuario invalido"})
+    } catch (error) {
+      res.status(500).json({ error: "ocorreu um erro ao se cadastrar. tente novamente mais tarde"});
     }
 
-    
-}
+  };
 
-async function Register(req,res) {
-    
-      try {
-        const users = await serviceUsers.Register(req.body);
-        users.token=jwt.CreateJWT(users.idUser,users.admin)
- 
-      
-        res.status(200).json(users);
-    } catch (err) {
-        res.status(500).json({error:err});
-    }
-    
-}
+async function List(req, res) {
+  try {
+    const users = await serviceUsers.List();
+    return res.status(200).json(users);  
+  } catch (err) {
+    return res.status(500).json({ error: "erro ao listar usuarios"});
+  }
+};
 
-export default {List,Login,Register};
+
+
+export default { Login, Register, List };

@@ -50,7 +50,7 @@ function EventSchedule() {
                 <Input placeholder='Mensagem' multiline={true} />
 
             </View>
-            <Button custom ={{ width: 60, borderRadius: 10, padding: 5, margin: 3,backgroundColor:'#3b1468ff'}} txt='>' />
+            <Button custom ={true} txt='>' />
 
 
         </View>

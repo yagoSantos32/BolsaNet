@@ -3,12 +3,13 @@ import getSpeedMeterData from './SpeedMeterData.jsx';
 import { styles } from './speedMeter.style.js';
 
 
+
 function SpeedMeter({ speed, size, radius, strokeWidth }) {
   const { path, center, pointer } = getSpeedMeterData(speed, size, radius);
-  const speedDescription = `${speed}GB`;
+  const speedDescription = `${speed}MBps`;
 
   return (
-    <Svg width={size} height={size-100}>
+    <Svg width={size} height={size - 100}>
       <Path
         d={path.d}
         stroke={styles.arc.backgroundColor}
@@ -31,9 +32,9 @@ function SpeedMeter({ speed, size, radius, strokeWidth }) {
         fontSize={styles.text.fontSize}
         fill={styles.text.color}
         textAnchor='middle'
-       
+
       >
-       {speedDescription}
+        {speedDescription}
       </Text>
 
       <Line
@@ -46,7 +47,7 @@ function SpeedMeter({ speed, size, radius, strokeWidth }) {
         strokeLinecap='round'
       />
 
-       
+
     </Svg>
   );
 }

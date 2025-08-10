@@ -10,7 +10,7 @@ function Input(props) {
 
         {props.label && <Text style={styles.label}>{props.label}</Text>}
         <TextInput style={styles.input}
-            secureTextEntry={props.password}
+            secureTextEntry={props.isPassword}
             onChangeText={(text) => props.onChangeText(text)}
             value={props.value}
             placeholder={props.placeholder}

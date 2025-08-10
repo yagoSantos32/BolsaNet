@@ -12,7 +12,7 @@ const colors = {
     bubbleSent: '#E7CCF8',
      //botoes
     btnPrimary: '#B364D3',
-    // btnSecond: '#7948b1ff',
+    btnSecond: '#3b1468ff',
     btnText: '#fff',
 
     

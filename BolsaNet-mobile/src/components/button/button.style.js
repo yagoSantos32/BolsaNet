@@ -19,8 +19,19 @@ export const styles = {
         color: colors.btnText,
         textAlign: 'center',
         fontSize: font_size.lg,
-        
 
+
+    },
+    custom: {
+        width: 60,
+        borderRadius: 10,
+        padding: 5,
+        margin: 3,
+        backgroundColor: colors.btnSecond
+
+    },
+    loading: {
+        opacity: .5,
     }
 };
 

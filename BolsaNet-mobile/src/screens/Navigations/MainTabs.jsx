@@ -48,6 +48,7 @@ function MainTabs() {
             <Tab.Screen name='Home'
                 component={Home}
                 options={{
+                    
                     tabBarIcon: () => (
 
                         <Image
