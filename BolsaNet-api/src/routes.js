@@ -10,11 +10,13 @@ const router = Router();
 router.get('/users', jwt.ValidateJWT,jwt.onlyAdmin, controllerUsers.List);
 router.post('/user/login',controllerUsers.Login);
 router.post('/user/register',controllerUsers.Register);
-//  pedido: adiciona data de criação de cadastro no banco de dados
 
 //rotas para controle de mensagens
 router.post('/message', jwt.ValidateJWT,controllerMessage.SendMessage)
+router.get('/message/conversations', jwt.ValidateJWT,controllerMessage.ListConversationByUser)
 
+
+// teste de velocidade de internet
 router.get('/speedtest', (req, res) => {
   const filePath = path.resolve('./public/SpeedMeter/2MB.dat');
  console.log('Enviando arquivo:', filePath);

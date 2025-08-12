@@ -21,4 +21,14 @@ async function SendMessage(req, res) {
     }
 }
 
-export default { SendMessage };
+async function ListConversationByUser(req, res) {
+  try {
+    const ConversationByUser = await serviceMessages.ListConversationByUser(req.idUser);
+
+    return res.status(200).json(ConversationByUser);  
+  } catch (err) {
+    return res.status(500).json({ error: "erro ao listar mensagens"});
+  }
+};
+
+export default { SendMessage,ListConversationByUser };

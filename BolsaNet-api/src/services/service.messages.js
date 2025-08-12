@@ -30,4 +30,10 @@ async function SendMessage(messageData) {
     return messageItem;
 }
 
-export default { SendMessage };
+async function ListConversationByUser(iduser) {
+    const ConversationByUser = await repositoryMessages.ListConversationByUser(iduser);
+    return ConversationByUser
+
+}
+
+export default { SendMessage,ListConversationByUser };
