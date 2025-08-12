@@ -10,21 +10,26 @@ import sharedStyles from '../../Constants/sharedStyles.js';
 function Home() {
 
   const [speed, setSpeed] = useState(0);
- useEffect(() => {
-  const interval = setInterval(async () => {
-    const result = await MeasureInternetSpeed();
-    if (result && !isNaN(result)) {
-      setSpeed(Number(result.toFixed(2)));
-    } else {
-      setSpeed(0);
+  useEffect(() => {
+    // Medição imediata ao montar o componente
+    async function measure() {
+      const result = await MeasureInternetSpeed();
+      if (result && !isNaN(result)) {
+        setSpeed(Number(result.toFixed(2)));
+      } else {
+        setSpeed(0);
+      }
     }
-  }, 5000); // 
 
-  return () => clearInterval(interval); // limpa o intervalo quando o componente desmonta
-}, []);
+    measure(); // primeira medição rápida
+
+    // Depois, medição periódica com intervalo maior
+    const interval = setInterval(measure, 30000); 
+
+    return () => clearInterval(interval);
+  }, []);
 
 
- 
   const recentAvg = 6.0;
   const previousAvg = 7;
   return (

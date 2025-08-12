@@ -4,7 +4,7 @@ async function MeasureInternetSpeed() {
     const startTime = Date.now();
 
     try {
-        const response = await api.get('http://192.168.0.9:3001/speedtest', {
+        const response = await api.get('/speedtest', {
             responseType: 'blob',
             headers: {
                 'Cache-Control': 'no-cache'
