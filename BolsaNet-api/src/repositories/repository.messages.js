@@ -11,5 +11,16 @@ async function SendMessage(senderId, recipientId, message, sentAt) {
 
     return SendMessages[1][0]
 }
+async function getLastMessageByUser(iduser) {
+    const sql = `
+    SELECT * FROM supportmessages 
+    WHERE senderId = ? OR recipientId = ?
+    ORDER BY sentAt DESC LIMIT 1
+  `;
 
-export default { SendMessage }
+    const lastMessageByUser = await execute(sql, [iduser,iduser]);
+
+    return lastMessageByUser[0]
+}
+
+export default { SendMessage, getLastMessageByUser }
