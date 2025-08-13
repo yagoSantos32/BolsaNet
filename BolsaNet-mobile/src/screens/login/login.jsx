@@ -35,6 +35,7 @@ function Login(props) {
             const response = await api.post('/user/login', cleanedUser);
             // salvar dados do usuario no storege local 
             if (response.data) {
+                api.defaults.headers.common['Authorization'] = "Bearer " + response.data.token
                 await SaveUser(response.data)
                 setUser(response.data)
 
@@ -55,6 +56,7 @@ function Login(props) {
         try {
             const user = await LoadUser()
         if(user.token)  
+            api.defaults.headers.common['Authorization'] = "Bearer " + user.token
             setUser(user)
         } catch (error) {
             console.error('Erro ao carregar usuário:', error);

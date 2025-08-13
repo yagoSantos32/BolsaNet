@@ -1,6 +1,9 @@
 import { Alert, ScrollView, View } from 'react-native';
-import { useState } from 'react';
-import api from '../../Constants/api.js'
+import { useContext, useState } from 'react';
+import api from '../../Constants/api.js';
+import { SaveUser } from '../../storage/storage.user.js';
+import { AuthContext } from '../../Contexts/auth.js';
+
 
 import sharedStyles from '../../Constants/sharedStyles.js';
 import { styles } from './register2.style.js';
@@ -21,7 +24,8 @@ function Register2(props) {
     const [street, setStreet] = useState('');
     const [number, setNumber] = useState('');
     const [loading, setLoading] = useState(false);
-
+    const { setUser } = useContext(AuthContext)
+    
     async function processRegister() {
         if (!cpf || !cep || !city || !uf || !district || !street || !number) {
             Alert.alert("Por favor, preencha todos os campos.");
@@ -48,13 +52,21 @@ function Register2(props) {
                 typeof value === 'string' ? [key, value.trim()] : [key, value]
             )
         );
+
         try {
             setLoading(true)
-            const response = await api.post('/user/register', [cleanedUser]);
-            Alert.alert("Foi");
-        } catch (error) {
 
+            const response = await api.post('/user/register', [cleanedUser]);
+
+            if (response.data) {
+
+                await SaveUser(response.data)
+                setUser(response.data)
+
+            }
+        } catch (error) {
             setLoading(false)
+            await SaveUser({})
             if (error.response?.data.error)
                 Alert.alert(error.response.data.error.toString());
             else

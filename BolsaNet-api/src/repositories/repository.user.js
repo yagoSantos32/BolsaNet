@@ -18,7 +18,7 @@ async function Register(fullName, email, password, cpf, cep, city, uf, district,
      ?,?,?,?,?,?,?,?,?,?,?,?
    
 );
-    SELECT iduser, admin FROM users WHERE iduser = LAST_INSERT_ID()
+    SELECT iduser,fullName,email,password,cep,city,uf, admin FROM users WHERE iduser = LAST_INSERT_ID()
 `;
     const registerUser = await execute(sql, [fullName, email, password, cpf, cep, city, uf, district, street, number, admin, status]);
 
@@ -32,7 +32,7 @@ async function List() {
 }
 
 async function ListByEmail(email) {
-    let sql = `SELECT iduser,fullName,email,password,cep,city,uf,district,admin
+    let sql = `SELECT iduser,fullName,email,password,cep,city,uf,admin
     FROM users WHERE email = ?`;
 
     const user = await execute(sql, [email]);

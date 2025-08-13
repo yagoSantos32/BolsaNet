@@ -17,7 +17,7 @@ async function Login(userData) {
             return user;
         }
         else {
-            return [];
+            return [];  
         }
     }
 }
@@ -33,6 +33,7 @@ async function Register(userData) {
     const hashPassword = await bcrypt.hash(password, 10);
     const user = await repositoryUser.Register(fullName, email, hashPassword, cpf, cep, city, uf, district, street, number, admin, status);
     user.token = jwt.CreateJWT(user.iduser, user.admin);
+    delete user.password;
     return user;
 }
 

@@ -1,50 +1,87 @@
-import { ScrollView, View } from 'react-native';
-import { useState,useRef, useEffect } from 'react';
+import { View, FlatList } from 'react-native';
+import { useState, useRef, useEffect, useContext, useCallback } from 'react';
+import io from 'socket.io-client';
+
 import SpeechBubble from '../../components/SpeechBubble/SpeechBubble.jsx';
-import sharedStyles from '../../Constants/sharedStyles.js';
 import Input from '../../components/Input/Input.jsx';
 import Button from '../../components/Button/Button.jsx';
+import sharedStyles from '../../Constants/sharedStyles.js';
+import { AuthContext } from '../../Contexts/auth.js';
 
 function Support() {
+    const { user } = useContext(AuthContext);
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([
-        { id: 0,sent: 0, text: 'diga-me como posso te ajudar' },
-    ]);
-    const scrollViewRef = useRef();
-    function processMessage() {
-        if (message.trim() === '') return;
-        setMessages(prev => [...prev, {id: Date.now(), sent: 1, text: message }])
-        setMessage('');
-    }
-    useEffect(()=>{
-        if(scrollViewRef.current){
-            scrollViewRef.current.scrollToEnd({ animated: true });
+    const [messages, setMessages] = useState([]);
+
+  
+    const flatListRef = useRef();
+
+    // Conexão do Socket
+    useEffect(() => {
+        const socket = io('http://192.168.0.9:3001', {
+            auth: { token: user.token }
+        });
+
+        socket.on('connect', () => {
+            socket.emit('ListConversationByUser');
+        
+        });
+
+        socket.on('conversationByUser', (conversations) => {
+            setMessages(conversations);
+        });
+
+        socket.on('newMessage', (newMsg) => {
+            setMessages(prev => [...prev, newMsg]);
+        });
+
+        socket.on('erroMensagens', (data) => {
+            console.log('Erro ao carregar mensagens:', data.error);
+        });
+
+        return () => socket.disconnect();
+    }, [user.token]);
+    // Scroll automático para o final da lista
+    useEffect(() => {
+        if (flatListRef.current && messages.length) {
+            flatListRef.current.scrollToEnd({ animated: true });
         }
-    },[messages]);
+    }, [messages]);
+
     return (
         <View style={[sharedStyles.container, { padding: 5 }]}>
-            <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
+            <FlatList
+                ref={flatListRef}
+                data={messages}
+                keyExtractor={(item) => item.idMessage.toString()}
 
-                {messages.map((msg, index) => (
-                    <SpeechBubble key={msg.id} sent={msg.sent} message={msg.text} />
-                ))}
+                renderItem={({ item }) => (
+                    <SpeechBubble
+                        sent={item.senderId === user.iduser}
+                        message={item.message}
+                    />
+                )}
+                showsVerticalScrollIndicator={false}
+            />
 
-              
-            </ScrollView>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
                 <View style={{ flex: 1 }}>
-                    <Input placeholder='Mensagem' multiline={true} autoFocus={true} value={message} onChangeText={setMessage} />
-
+                    <Input
+                        placeholder='Mensagem'
+                        multiline={true}
+                        autoFocus={true}
+                        value={message}
+                        onChangeText={setMessage}
+                    />
                 </View>
 
                 <Button custom={true}
-                    onPress={() => processMessage()}
+                    onPress={() => SendMessage()}
 
                     txt='>' />
             </View>
-
         </View>
-    )
+    );
 }
 
 export default Support;
