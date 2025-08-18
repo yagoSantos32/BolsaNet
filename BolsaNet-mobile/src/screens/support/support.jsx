@@ -13,18 +13,20 @@ function Support() {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
-  
-    const flatListRef = useRef();
 
-    // Conexão do Socket
+    const flatListRef = useRef();
+    const socketRef = useRef(null); 
+
+   
     useEffect(() => {
-        const socket = io('http://192.168.0.9:3001', {
+        const socket = io(process.env.EXPO_PUBLIC_API_URL, {
             auth: { token: user.token }
         });
 
+        socketRef.current = socket; 
+
         socket.on('connect', () => {
             socket.emit('ListConversationByUser');
-        
         });
 
         socket.on('conversationByUser', (conversations) => {
@@ -32,7 +34,10 @@ function Support() {
         });
 
         socket.on('newMessage', (newMsg) => {
-            setMessages(prev => [...prev, newMsg]);
+            setMessages(prev => {
+                const exists = prev.some(msg => msg.idMessage === newMsg.idMessage);
+                return exists ? prev : [...prev, newMsg];
+            });
         });
 
         socket.on('erroMensagens', (data) => {
@@ -41,6 +46,18 @@ function Support() {
 
         return () => socket.disconnect();
     }, [user.token]);
+
+    function SendMessage() {
+        if (message.trim()) {
+            socketRef.current.emit('sendMessage', {
+                senderId: user.iduser,
+                message: message.trim()
+
+            });
+        
+        }
+        setMessage('');
+    }
     // Scroll automático para o final da lista
     useEffect(() => {
         if (flatListRef.current && messages.length) {

@@ -19,7 +19,7 @@ function DrawerNav() {
 const {user}=useContext(AuthContext)
   return (
     <Drawer.Navigator screenOptions={{
-
+      drawerPosition:'right',
       headerTitle: () => <Logo direction='row' description='BolsaNet' small={1} />,
       headerTitleAlign: 'center',
       headerStyle: { backgroundColor: colors.second },
