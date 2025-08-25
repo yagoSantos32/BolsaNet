@@ -12,7 +12,15 @@ import Register2 from './Screens/Register2/Register2.jsx';
 const Stack = createNativeStackNavigator();
 function RoutesOpen() {
     return <NavigationContainer>
-        <Stack.Navigator >
+        <Stack.Navigator screenOptions={{
+                    animation: 'slide_from_right',
+                    title: '',
+                    headerBackTitle: 'Voltar',
+                    headerTintColor: colors.primary,
+                    headerShadowVisible: false,
+                    headerTransparent: true
+
+                }}>
 
             <Stack.Screen
             
@@ -25,31 +33,13 @@ function RoutesOpen() {
             <Stack.Screen
                 name='Register'
                 component={Register}
-                options={{
-                    animation: 'slide_from_right',
-                    title: '',
-                    headerBackTitle: 'Voltar',
-                    headerTintColor: colors.primary,
-                    headerShadowVisible: false,
-                    headerTransparent: true
-
-                }}
-
-
+           
             />
 
             <Stack.Screen
                 name='Register2'
                 component={Register2}
-                options={{
-                    animation: 'slide_from_right',
-                    title: '',
-                    headerBackTitle: 'Voltar',
-                    headerTintColor: colors.primary,
-                    headerShadowVisible: false,
-                    headerTransparent: true
-
-                }}
+                
 
             />
 
