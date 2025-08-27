@@ -2,9 +2,9 @@ import { View, FlatList } from 'react-native';
 import { useState, useRef, useEffect, useContext, useCallback } from 'react';
 import io from 'socket.io-client';
 
-import SpeechBubble from '../../Components/SpeechBubble/SpeechBubble.js';
-import Input from '../../Components/Input/Input.js';
-import Button from '../../Components/Button/Button.js';
+import SpeechBubble from '../../Components/SpeechBubble/SpeechBubble.jsx';
+import Input from '../../Components/Input/Input.jsx';
+import Button from '../../Components/Button/Button.jsx';
 import sharedStyles from '../../Constants/sharedStyles.js';
 import { AuthContext } from '../../Contexts/auth.js';
 

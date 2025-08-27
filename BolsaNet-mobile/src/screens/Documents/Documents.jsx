@@ -6,7 +6,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import Button from "../../Components/Button/Button";
 import Input from "../../Components/Input/Input";
 import icons from "../../Constants/icons";
-import Logo from "../../Components/Logo/Logo";
+
 
 
 function Documents() {

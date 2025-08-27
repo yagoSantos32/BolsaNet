@@ -7,9 +7,9 @@ import { AuthContext } from '../../Contexts/auth.js';
 import sharedStyles from '../../Constants/sharedStyles.js';
 import { styles } from './login.style.js';
 
-import Logo from '../../Components/Logo/Logo.js';
-import Input from '../../Components/Input/Input.js';
-import Button from '../../Components/Button/Button.js';
+import Logo from '../../Components/Logo/Logo.jsx';
+import Input from '../../Components/Input/Input.jsx';
+import Button from '../../Components/Button/Button.jsx';
 
 function Login(props) {
     // Estados dos campos

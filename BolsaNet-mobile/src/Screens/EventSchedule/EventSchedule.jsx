@@ -2,8 +2,8 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { useState } from 'react';
 import sharedStyles from '../../Constants/sharedStyles.js';
-import Input from '../../Components/Input/Input.js';
-import Button from '../../Components/Button/Button.js';
+import Input from '../../Components/Input/Input.jsx';
+import Button from '../../Components/Button/Button.jsx';
 
 function EventSchedule() {
     const today = new Date().toLocaleDateString('sv-SE');
