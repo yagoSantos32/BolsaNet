@@ -1,16 +1,16 @@
 import { Alert, ScrollView, View } from 'react-native';
 import { useContext, useState } from 'react';
 import api from '../../Constants/api.js';
-import { SaveUser } from '../../storage/storage.user.js';
+import { SaveUser } from '../../Storage/storage.user.js';
 import { AuthContext } from '../../Contexts/auth.js';
 
 
 import sharedStyles from '../../Constants/sharedStyles.js';
 import { styles } from './register2.style.js';
 
-import Logo from '../../components/Logo/Logo.jsx';
-import Input from '../../components/Input/Input.jsx';
-import Button from '../../components/Button/Button.jsx';
+import Logo from '../../Components/Logo/Logo.jsx';
+import Input from '../../Components/Input/Input.jsx';
+import Button from '../../Components/Button/Button.jsx';
 
 function Register2(props) {
     const { fullName, email, password } = props.route.params;

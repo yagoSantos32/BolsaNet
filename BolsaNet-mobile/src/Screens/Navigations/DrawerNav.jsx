@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // estilos
-import Logo from '../../components/Logo/Logo.jsx';
+import Logo from '../../Components/Logo/Logo.jsx';
 import { colors, font_size } from '../../Constants/theme.js';
 
 // rotas

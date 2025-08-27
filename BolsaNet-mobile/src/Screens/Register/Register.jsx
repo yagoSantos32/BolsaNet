@@ -4,9 +4,9 @@ import { useState } from 'react';
 import sharedStyles from '../../Constants/sharedStyles.js';
 import { styles } from './register.style.js';
 
-import Logo from '../../components/Logo/Logo.jsx';
-import Input from '../../components/Input/Input.jsx';
-import Button from '../../components/Button/Button.jsx';
+import Logo from '../../Components/Logo/Logo.jsx';
+import Input from '../../Components/Input/Input.jsx';
+import Button from '../../Components/Button/Button.jsx';
 
 function Register(props) {
     // Estados dos campos

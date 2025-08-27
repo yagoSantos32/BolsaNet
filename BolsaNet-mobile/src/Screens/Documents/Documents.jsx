@@ -3,10 +3,10 @@ import sharedStyles from "../../Constants/sharedStyles";
 
 import { useState } from "react";
 import * as DocumentPicker from 'expo-document-picker';
-import Button from "../../components/Button/Button";
-import Input from "../../components/Input/Input";
+import Button from "../../Components/Button/Button";
+import Input from "../../Components/Input/Input";
 import icons from "../../Constants/icons";
-import Logo from "../../components/Logo/Logo";
+
 
 
 function Documents() {

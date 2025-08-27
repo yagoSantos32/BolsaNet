@@ -1,15 +1,15 @@
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { useContext, useEffect, useState } from 'react';
 import api from '../../Constants/api.js'
-import { LoadUser, SaveUser } from '../../storage/storage.user.js';
+import { LoadUser, SaveUser } from '../../Storage/storage.user.js';
 import { AuthContext } from '../../Contexts/auth.js';
 
 import sharedStyles from '../../Constants/sharedStyles.js';
 import { styles } from './login.style.js';
 
-import Logo from '../../components/Logo/Logo.jsx';
-import Input from '../../components/Input/Input.jsx';
-import Button from '../../components/Button/Button.jsx';
+import Logo from '../../Components/Logo/Logo.jsx';
+import Input from '../../Components/Input/Input.jsx';
+import Button from '../../Components/Button/Button.jsx';
 
 function Login(props) {
     // Estados dos campos

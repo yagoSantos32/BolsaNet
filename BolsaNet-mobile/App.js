@@ -1,6 +1,6 @@
 import { StatusBar } from 'react-native';
 import { colors } from './src/Constants/theme.js';
-import SetRoute from './src/setRoute.js';
+import SetRoute from './src/setRoute.jsx';
 import { AuthProvider } from './src/Contexts/auth.js';
 
 export default function App() {

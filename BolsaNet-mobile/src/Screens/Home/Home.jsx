@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
-import SpeedMeter from '../../components/SpeedMeter/SpeedMeter.jsx';
-import MeasureInternetSpeed from '../../components/SpeedMeter/measureInternetSpeed.js';
-import SpeechBubble from '../../components/SpeechBubble/SpeechBubble.jsx';
+import SpeedMeter from '../../Components/SpeedMeter/SpeedMeter.jsx';
+import MeasureInternetSpeed from '../../Components/SpeedMeter/measureInternetSpeed.js';
+import SpeechBubble from '../../Components/SpeechBubble/SpeechBubble.jsx';
 import { useEffect, useState } from 'react';
 import { styles } from './home.style.js';
 import sharedStyles from '../../Constants/sharedStyles.js';

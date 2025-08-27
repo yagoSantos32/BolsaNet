@@ -1,5 +1,5 @@
-import RoutesOpen from "./routesOpen.js";
-import RoutesAuth from "./routesAuth.js";
+import RoutesOpen from "./routesOpen.jsx";
+import RoutesAuth from "./routesAuth.jsx";
 import { useContext } from "react";
 import { AuthContext } from "./Contexts/auth.js";
 function SetRoute() {
