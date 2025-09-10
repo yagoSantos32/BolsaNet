@@ -54,7 +54,6 @@ function Login(props) {
 
     async function loadDatas() {
         try {
-            // await api.get('/validateJWT')
             const user = await LoadUser()
             if (user.token) {
                 api.defaults.headers.common['Authorization'] = "Bearer " + user.token

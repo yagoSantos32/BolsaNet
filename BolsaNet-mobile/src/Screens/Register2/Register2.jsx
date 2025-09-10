@@ -42,10 +42,7 @@ function Register2(props) {
             uf,
             district,
             street,
-            number,
-            admin: 0,
-            status: "nao_solicitado"
-
+            number
         };
         const cleanedUser = Object.fromEntries(
             Object.entries(user).map(([key, value]) =>

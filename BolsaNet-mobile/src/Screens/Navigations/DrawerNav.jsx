@@ -46,8 +46,6 @@ const {user}=useContext(AuthContext)
       <Drawer.Screen name='Documentos pessoais' component={Documents} />
       <Drawer.Screen name='Documentos Escolares ' component={Documents} />
       <Drawer.Screen name='Oque é esse programa?' component={Documents} />
-
-
     </Drawer.Navigator>
   );
 }
