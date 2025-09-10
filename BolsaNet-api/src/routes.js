@@ -6,27 +6,42 @@ import controllerMessage from "./controllers/controller.messages.js";
 import jwt from "./token.js";
 import multer from "multer";
 const router = Router();
-const uploads = multer({storage:storage})
+const uploads = multer({ storage: storage })
+
+// rota apenas para verificar a validade do token no front 
+router.get('/validateJWT', jwt.ValidateJWT, (req, res) => {
+    res.json({ valid: true, userId: req.userId });
+});
+
 
 //rotas para controle de usuario
-router.get('/users', jwt.ValidateJWT,jwt.onlyAdmin, controllerUsers.List);
-router.post('/user/login',controllerUsers.Login);
-router.post('/user/register',controllerUsers.Register);
+router.get('/users', jwt.ValidateJWT, jwt.onlyAdmin, controllerUsers.List);
+router.post('/user/login', controllerUsers.Login);
+router.post('/user/register', controllerUsers.Register);
 
 //rotas para documentos
-router.post('/documents/upload',uploads.single('file'),(req,res)=>{
-  return res.json(req.file.fieldname)
+router.post('/documents/uploads', uploads.any(), (req, res) => {
+  const documents = {}
+  for (let i = 0; i < req.files.length; i++) {
+    const file = req.files[i]
+    if(!documents[file.fieldname]){
+      documents[file.fieldname]=[]
+    }
+    documents[file.fieldname].push(file)
+  }
+  console.log(documents)
+  return res.json(documents)
 })
 
 //rotas para controle de mensagens
-router.post('/message', jwt.ValidateJWT,controllerMessage.SendMessage)
-router.get('/message/conversations', jwt.ValidateJWT,controllerMessage.ListConversationByUser)
+router.post('/message', jwt.ValidateJWT, controllerMessage.SendMessage)
+router.get('/message/conversations', jwt.ValidateJWT, controllerMessage.ListConversationByUser)
 
 
 // teste de velocidade de internet
 router.get('/speedtest', (req, res) => {
   const filePath = path.resolve('./public/SpeedMeter/2MB.dat');
- console.log('Enviando arquivo:', filePath);
+  console.log('Enviando arquivo:', filePath);
   res.sendFile(filePath, err => {
     if (err) {
       console.error('Erro ao enviar arquivo:', err);

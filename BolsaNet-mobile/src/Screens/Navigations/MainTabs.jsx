@@ -21,7 +21,7 @@ function MainTabs() {
                 tabBarHideOnKeyboard: true,
                 tabBarShowLabel: false,
                 tabBarStyle: { backgroundColor: '#9464d3ff' },
-
+                animation: 'shift'
 
             }}>
             <Tab.Screen
@@ -48,7 +48,7 @@ function MainTabs() {
             <Tab.Screen name='Home'
                 component={Home}
                 options={{
-                    
+
                     tabBarIcon: () => (
 
                         <Image
@@ -68,7 +68,7 @@ function MainTabs() {
             <Tab.Screen
                 name='EventSchedule'
                 component={EventSchedule}
-                  options={{
+                options={{
                     tabBarIcon: () => (
 
                         <Image

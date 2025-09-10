@@ -54,19 +54,24 @@ function Login(props) {
 
     async function loadDatas() {
         try {
+            // await api.get('/validateJWT')
             const user = await LoadUser()
-        if(user.token)  
-            api.defaults.headers.common['Authorization'] = "Bearer " + user.token
+            if (user.token) {
+                api.defaults.headers.common['Authorization'] = "Bearer " + user.token
+                await api.get('/validateJWT')
+            }
+
+
             setUser(user)
         } catch (error) {
             console.error('Erro ao carregar usuário:', error);
         }
-        
+
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         loadDatas()
-    },[])
+    }, [])
 
 
     // Definição “declarativa” dos campos
