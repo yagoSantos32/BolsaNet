@@ -3,8 +3,10 @@ import path from 'path';
 import { storage } from "./multer.config.js";
 import controllerUsers from "./controllers/controller.users.js";
 import controllerMessage from "./controllers/controller.messages.js";
+import controllerDocuments from "./controllers/controller.documents.js";
 import jwt from "./token.js";
 import multer from "multer";
+
 const router = Router();
 const uploads = multer({ storage: storage })
 
@@ -20,18 +22,7 @@ router.post('/user/login', controllerUsers.Login);
 router.post('/user/register', controllerUsers.Register);
 
 //rotas para documentos
-router.post('/documents/uploads', uploads.any(), (req, res) => {
-  const documents = {}
-  for (let i = 0; i < req.files.length; i++) {
-    const file = req.files[i]
-    if(!documents[file.fieldname]){
-      documents[file.fieldname]=[]
-    }
-    documents[file.fieldname].push(file)
-  }
-  console.log(documents)
-  return res.json(documents)
-})
+router.post('/documents/uploads', jwt.ValidateJWT,uploads.any(),controllerDocuments.RegisterDocuments)
 
 //rotas para controle de mensagens
 router.post('/message', jwt.ValidateJWT, controllerMessage.SendMessage)

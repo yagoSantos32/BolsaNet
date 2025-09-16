@@ -17,7 +17,7 @@ async function Register(req, res) {
     const userData = [{
       ...req.body["0"],
       admin: 0,
-      status: "nao_solicitado",
+      status: "nao solicitado",
       
     }];
     const user = await serviceUsers.Register(userData);
