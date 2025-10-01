@@ -1,0 +1,157 @@
+
+body {
+    background: #f8f4fb;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header fixo no topo */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #E3CAED;
+    border-bottom: 2px solid #ddd;
+}
+
+/* lado esquerdo do header */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.back-button {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+header img {
+    height: 40px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: #444;
+}
+
+/* lado direito do header */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #444;
+}
+
+/* Container geral */
+.container {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 70px);
+    /* desconta header */
+}
+
+/* Sidebar (aside) */
+aside {
+    width: 30%;
+    background: #F9F9F9;
+    border-right: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+aside .contact {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+aside .contact:hover {
+    background: #e7d7f3;
+}
+
+aside .contact .profile-pic {
+    margin-right: 10px;
+
+}
+
+/* Área principal (chat) */
+main {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+/* onde escreve as mensagem */
+.chat-footer {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+main input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+}
+
+main button {
+    margin-left: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background: #3C0452;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+main button:hover {
+    background: #3C0452;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    aside {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #ddd;
+    }
+
+    main {
+        width: 100%;
+        flex: 1;
+    }
+}
