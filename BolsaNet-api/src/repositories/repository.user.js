@@ -18,7 +18,7 @@ async function Register(fullName, email, password, cpf, cep, city, uf, district,
      ?,?,?,?,?,?,?,?,?,?,?,?
    
 );
-    SELECT iduser,fullName,email,password,cep,city,uf, admin FROM users WHERE iduser = LAST_INSERT_ID()
+    SELECT iduser,fullName,email,cep,city,uf, admin FROM users WHERE iduser = LAST_INSERT_ID()
 `;
     const registerUser = await execute(sql, [fullName, email, password, cpf, cep, city, uf, district, street, number, admin, status]);
 
@@ -31,11 +31,11 @@ async function List() {
     return users;
 }
 
-async function ListByEmail(email) {
-    let sql = `SELECT iduser,fullName,email,password,cep,city,uf,admin
-    FROM users WHERE email = ?`;
+async function ListByEmailOrCpf(email,cpf) {
+    let sql = `SELECT iduser,fullName,email,cep,city,uf,admin
+    FROM users WHERE email = ? or cpf = ?`;
 
-    const user = await execute(sql, [email]);
+    const user = await execute(sql, [email,cpf]);
 
     if (!user || user.length === 0) {
        
@@ -64,4 +64,4 @@ async function getRandomAdminId() {
 
 
 
-export default { Register, List, ListByEmail, getRandomAdminId }
+export default { Register, List, ListByEmailOrCpf, getRandomAdminId }

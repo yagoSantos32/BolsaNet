@@ -25,10 +25,10 @@ async function Login(userData) {
 async function Register(userData) {
    
     const [{ fullName, email, password, cpf, cep, city, uf, district, street, number, admin, status }] = userData
-    const userEmail = await repositoryUser.ListByEmail(email);
+    const userEmail = await repositoryUser.ListByEmailOrCpf(email,cpf);
 
     if (userEmail) {
-        return { error: "E-mail já cadastrado." };
+        return { error: "E-mail ou cpf já cadastrado." };
     }
     const hashPassword = await bcrypt.hash(password, 10);
     const user = await repositoryUser.Register(fullName, email, hashPassword, cpf, cep, city, uf, district, street, number, admin, status);
