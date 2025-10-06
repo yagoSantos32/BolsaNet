@@ -2,7 +2,6 @@
 <html lang="pt-br">
 
 <head>
-    <head>
         <meta charset="UTF-8">
         <meta name="author" content="Yago Santos, Lucas Barbosa">
         <meta name="description" content="A Internet como Recurso de Inclusão no Acesso à Informação">
@@ -10,16 +9,95 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>administração</title>
         <link rel="shortcut icon" href="../assets/logo.svg" type="image/x-icon">
-        <link rel="stylesheet" href="../styles/theme.css">
       <link rel="stylesheet" href="../styles/global.css">
-      <link rel="stylesheet" href="../styles/support.css">
-    </head>
+      <link rel="stylesheet" href="../styles/theme.css">
+      <link rel="stylesheet" href="../styles/home.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
+  <div class="container">
+    <header>
+      <div class="menu-container">
+          <i class="fas fa-bars menu-icon" id="menu-btn"></i> 
+          <div class="dropdown-content" id="menu-dropdown">
+              <a href="../pages/support.html">Suporte</a>
+              <a href="#">Gerenciar Benefício</a>
+              <a href="#">Novos Administradores</a>
+              <a href="../pages/login.html">Sair</a>
+          </div>
+      </div>
+  </header>
 
-<h1>dentro</h1>
+    <main>
+        <div class="filter-bar">
+            <div class="title">titulo</div>
+            
+            <div class="search-filter-group">
+                <div class="search-box">
+                    <input type="text" placeholder="pesquisar">
+                    <i class="fas fa-search"></i> 
+                </div>
+                <div class="filter-container">
+                    <button class="btn-filter" id="filter-btn">
+                        filtrar
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content" id="filter-dropdown">
+                        <a href="#">Aprovados</a>
+                        <a href="#">Negados</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="data-list">
+            <div class="data-row header-row">
+                <div>nome</div> <div>email</div> <div>status</div> <div>operação</div>
+            </div>
+            <div class="data-row">
+                <div data-label="Nome:">yago santos</div> <div data-label="Email:">yago@gmail.com</div> <div data-label="Status:"><span class="status status-aprovado">aprovado</span></div> <div data-label="Operação:"><div class="operacao-icons"><img src="../assets/book.png" alt="Ver Detalhes"><img src="../assets/pencil.png" alt="Editar"><img src="../assets/bin.png" alt="Excluir" class="lixeira-icon"></div></div>
+            </div>
+            <div class="data-row">
+                <div data-label="Nome:">Livia Lopes</div> <div data-label="Email:">yago@gmail.com</div> <div data-label="Status:"><span class="status status-negado">negado</span></div> <div data-label="Operação:"><div class="operacao-icons"><img src="../assets/book.png" alt="Ver Detalhes"><img src="../assets/pencil.png" alt="Editar"><img src="../assets/bin.png" alt="Excluir" class="lixeira-icon"></div></div>
+            </div>
+            <div class="data-row">
+                <div data-label="Nome:">uga</div> <div data-label="Email:">uga@gmail.com</div> <div data-label="Status:"><span class="status status-aprovado">aprovado</span></div> <div data-label="Operação:"><div class="operacao-icons"><img src="../assets/book.png" alt="Ver Detalhes"><img src="../assets/pencil.png" alt="Editar"><img src="../assets/bin.png" alt="Excluir" class="lixeira-icon"></div></div>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+  // --- CÓDIGO PARA O DROPDOWN DE FILTRO (Existente) ---
+  const filterBtn = document.getElementById('filter-btn');
+  const filterDropdown = document.getElementById('filter-dropdown');
+
+  filterBtn.addEventListener('click', function(event) {
+      filterDropdown.classList.toggle('show');
+      event.stopPropagation(); // Impede o clique de fechar o menu imediatamente
+  });
+
+  // --- NOVO CÓDIGO PARA O DROPDOWN DO MENU PRINCIPAL ---
+  const menuBtn = document.getElementById('menu-btn');
+  const menuDropdown = document.getElementById('menu-dropdown');
+
+  menuBtn.addEventListener('click', function(event) {
+      menuDropdown.classList.toggle('show');
+      event.stopPropagation(); // Impede o clique de fechar o menu imediatamente
+  });
+
+  // --- LÓGICA ATUALIZADA PARA FECHAR AMBOS OS MENUS AO CLICAR FORA ---
+  window.addEventListener('click', function(event) {
+      // Fecha o dropdown de filtro se estiver aberto
+      if (filterDropdown.classList.contains('show')) {
+          filterDropdown.classList.remove('show');
+      }
+      // Fecha o dropdown do menu se estiver aberto
+      if (menuDropdown.classList.contains('show')) {
+          menuDropdown.classList.remove('show');
+      }
+  });
+</script>
 </body>
 
 </html>

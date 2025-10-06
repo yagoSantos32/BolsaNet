@@ -23,8 +23,10 @@ header {
     gap: 10px;
 }
 
-.back-button {
-    font-size: 1.5rem;
+.back-button img {
+    margin-right: 20px;
+    width: 15px; 
+    height: auto; 
     cursor: pointer;
 }
 
@@ -68,6 +70,8 @@ aside {
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
 }
 
 aside .contact {
@@ -112,7 +116,10 @@ main {
     margin: auto;
     margin-bottom: 20px;
 }
-
+.chat-footer button img {
+    width: 20px;
+    height: auto;
+}
 main input {
     flex: 1;
     padding: 0.8rem;
@@ -152,6 +159,5 @@ main button:hover {
 
     main {
         width: 100%;
-        flex: 1;
     }
 }

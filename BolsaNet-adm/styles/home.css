@@ -1,0 +1,174 @@
+:root {
+    --espacamento: 20px;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+.container {
+    width: 100%;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--espacamento) var(--espacamento) 0 var(--espacamento);
+}
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #555;
+}
+
+.filter-container {
+    position: relative; 
+    display: inline-block;
+}
+
+.filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #e6dff0;
+    padding: 10px var(--espacamento);
+    border-radius: 10px;
+    margin: var(--espacamento);
+    gap: 15px;
+}
+
+.filter-bar .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #555;
+}
+
+.search-filter-group {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end;
+    max-width: 500px;
+    gap: 10px; /* Espaço entre a busca e o botão */
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Arredondamento normal */
+    padding: 5px 10px;
+    flex-grow: 1;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+    width: 100%;
+    padding-right: 5px;
+}
+
+.search-box .fa-search {
+    color: #888;
+    cursor: pointer;
+}
+
+.btn-filter {
+    background-color: #8D79FF;
+    color: white;
+    border: none;
+    border-radius: 8px; /* Arredondamento normal */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-filter:hover {
+    background-color: #7a63e0;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 8px;
+    right: 0;
+    margin-top: 5px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown-content a:hover { background-color: #f1f1f1; }
+.show { display: block; }
+
+.data-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 var(--espacamento) var(--espacamento) var(--espacamento);
+}
+
+.data-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr 1.2fr 1fr;
+    align-items: center;
+    padding: 15px var(--espacamento);
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    font-size: 16px;
+}
+
+.header-row {
+    background-color: transparent;
+    box-shadow: none;
+    font-weight: bold;
+    color: #888;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 0 var(--espacamento);
+}
+
+.status { padding: 5px 15px; border-radius: 20px; color: white; font-weight: bold; text-align: center; display: inline-block; }
+.status-aprovado { background-color: #00A946; }
+.status-negado { background-color: #A90000; }
+.operacao-icons { display: flex; justify-content: flex-start; gap: 15px; align-items: center; }
+.operacao-icons img { width: 20px; height: 20px; cursor: pointer; opacity: 0.7; transition: opacity 0.2s ease; }
+.operacao-icons img:hover { opacity: 1; }
+.operacao-icons .lixeira-icon { width: 20px; height: 20px; cursor: pointer; }
+
+@media (max-width: 768px) {
+    :root { --espacamento: 15px; }
+    .filter-bar { flex-direction: column; align-items: stretch; }
+    .search-filter-group { max-width: none; }
+    .header-row { display: none; }
+    .data-row { grid-template-columns: 1fr; gap: 10px; text-align: right; }
+    .data-row > div::before { content: attr(data-label); font-weight: bold; color: #555; float: left; margin-right: 10px; }
+    .data-row > div:nth-child(3), .data-row > div:nth-child(4) { display: flex; justify-content: space-between; align-items: center; }
+    .operacao-icons { justify-content: flex-end; gap: 10px; }
+}
