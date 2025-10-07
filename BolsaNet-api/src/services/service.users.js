@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 
 async function Login(userData) {
     const { email, password } = userData
-    const user = await repositoryUser.ListByEmail(email);
+    const user = await repositoryUser.ListByEmailOrCpf(email,null);
     if (!user || user.length == 0) {
         return [];
     }
