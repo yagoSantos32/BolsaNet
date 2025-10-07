@@ -28,8 +28,10 @@ router.post('/documents/uploads', jwt.ValidateJWT,uploads.any(),controllerDocume
 router.post('/message', jwt.ValidateJWT, controllerMessage.SendMessage)
 router.get('/message/conversations', jwt.ValidateJWT, controllerMessage.ListConversationByUser)
 
+// Endpoint para teste de velocidade de internet.
+//  Em ambiente de produção, este endpoint deve ser substituído por uma API pública externa.
+// Isso evita custos com largura de banda e limitações de planos gratuitos de hospedagem.
 
-// teste de velocidade de internet
 router.get('/speedtest', (req, res) => {
   const filePath = path.resolve('./public/SpeedMeter/2MB.dat');
   console.log('Enviando arquivo:', filePath);
