@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 
 async function Login(userData) {
     const { email, password } = userData
-    const user = await repositoryUser.ListByEmailOrCpf(email,null);
+    const user = await repositoryUser.ListByEmailOrCpf(email, null);
     if (!user || user.length == 0) {
         return [];
     }
@@ -17,15 +17,15 @@ async function Login(userData) {
             return user;
         }
         else {
-            return [];  
+            return [];
         }
     }
 }
 
 async function Register(userData) {
-   
+
     const [{ fullName, email, password, cpf, cep, city, uf, district, street, number, admin, status }] = userData
-    const userEmail = await repositoryUser.ListByEmailOrCpf(email,cpf);
+    const userEmail = await repositoryUser.ListByEmailOrCpf(email, cpf);
 
     if (userEmail) {
         return { error: "E-mail ou cpf já cadastrado." };
@@ -37,8 +37,12 @@ async function Register(userData) {
     return user;
 }
 
-async function List() {
-    const users = await repositoryUser.List();
+async function List(filters) {
+    const validFilters = Object.fromEntries(
+        Object.entries(filters).filter(([_, value]) => value)
+    )
+
+    const users = await repositoryUser.List(validFilters);
     return users.map(user => {
         const { password: _, ...safeUser } = user;
         return safeUser;
@@ -46,8 +50,30 @@ async function List() {
 
 }
 
+async function UpdateUser(iduser, data) {
+    const { status } = data
+    if (!status) {
+        throw new Error("O campo 'status' é obrigatório.");
+    }
 
-export default { Login, Register, List };
+    const result = await repositoryUser.UpdateUser(iduser, status);
+    if (result.affectedRows === 0) return null;
+    return result
+};
+
+async function DeleteUser(iduser) {
+    if (!iduser) {
+        throw new Error("O id do usuario é obrigatório.");
+    }
+    const result = await repositoryUser.DeleteUser(iduser)
+    if (result.affectedRows === 0) return null;
+    return result
+}
+
+
+
+
+export default { Login, Register, List, UpdateUser, DeleteUser };
 
 
 // aqui deve ser implementado as regras para o app (os if e else para deixa-lo seguro)

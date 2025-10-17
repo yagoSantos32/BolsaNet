@@ -14,11 +14,17 @@ async function SendMessage(senderId, recipientId, message, sentAt) {
 
 async function ListConversationByUser(iduser) {
 
-  let sql = `SELECT * from supportmessages WHERE(senderId = ?) or(recipientId = ?) ORDER BY sentAt asc;`
-  const ConversationByUser= await execute(sql,[iduser,iduser]);
+  const sql = `
+    SELECT m.*, u.fullName AS senderName
+    FROM supportmessages m
+    JOIN users u ON m.senderId = u.iduser
+    WHERE m.senderId = ? OR m.recipientId = ?
+    ORDER BY m.sentAt ASC;
+  `;
+  const ConversationByUser = await execute(sql, [iduser, iduser]);
 
   return ConversationByUser
-  
+
 }
 
 

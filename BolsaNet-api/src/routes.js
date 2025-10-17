@@ -14,15 +14,22 @@ const uploads = multer({ storage: storage })
 router.get('/validateJWT', jwt.ValidateJWT, (req, res) => {
     res.json({ valid: true, userId: req.userId });
 });
+// rota apenas para o front verificar se o usuário é admin
+router.get('/validateAdmin', jwt.ValidateJWT, jwt.onlyAdmin, (req, res) => {
+    res.json({ valid: true, userId: req.userId, admin: req.admin });
+});
 
 
 //rotas para controle de usuario
 router.get('/users', jwt.ValidateJWT, jwt.onlyAdmin, controllerUsers.List);
-router.post('/user/login', controllerUsers.Login);
 router.post('/user/register', controllerUsers.Register);
+router.post('/user/login', controllerUsers.Login);
+router.put('/user/update/:iduser/status', jwt.ValidateJWT,jwt.onlyAdmin, controllerUsers.UpdateUser)
+router.delete('/user/:iduser',jwt.ValidateJWT,jwt.onlyAdmin,controllerUsers.DeleteUser)
 
 //rotas para documentos
 router.post('/documents/uploads', jwt.ValidateJWT,uploads.any(),controllerDocuments.RegisterDocuments)
+router.get('/user/:userId/documents', jwt.ValidateJWT, jwt.onlyAdmin, controllerDocuments.ListUserDocuments);
 
 //rotas para controle de mensagens
 router.post('/message', jwt.ValidateJWT, controllerMessage.SendMessage)

@@ -26,9 +26,25 @@ async function RegisterDocuments(req, res) {
 
         return res.status(200).json(registerDocuments)
 
-    } catch (error) {
-        return res.status(500).json({ error: "Erro ao registrar documentos",error });
+    } catch (err) {
+        return res.status(500).json({ error: "Erro ao registrar documentos" });
     }
 }
 
-export default { RegisterDocuments };
+async function ListUserDocuments(req, res) {
+    try {
+        const { userId } = req.params
+
+        const documents = await serviceDocuments.ListUserDocuments(userId)
+
+        if (!documents) {
+            return res.status(404).json({ error: "nenhum documento encontrado para este usuário" })
+        }
+        return res.status(200).json(documents);
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ error: "Erro ao listar documentos do usuário." });
+    }
+}
+
+export default { RegisterDocuments, ListUserDocuments };

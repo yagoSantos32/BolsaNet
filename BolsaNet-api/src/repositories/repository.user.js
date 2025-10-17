@@ -25,9 +25,20 @@ async function Register(fullName, email, password, cpf, cep, city, uf, district,
     return registerUser[1][0];
 }
 
-async function List() {
-    let sql = `SELECT * FROM users ORDER BY iduser DESC`;
-    const users = await execute(sql, []);
+async function List(filters) {
+    let sql = `SELECT * FROM users`;
+    const params = [];
+    const conditions = Object.entries(filters).map(([field, value]) => {
+        params.push(value)
+        return `${field} = ?`
+    })
+
+    if (conditions.length > 0) {
+        sql += ` WHERE ` + conditions.join(' AND ')
+    }
+
+    sql += ` ORDER BY iduser DESC`;
+    const users = await execute(sql, params);
     return users;
 }
 
@@ -53,19 +64,31 @@ async function getRandomAdminId() {
     let sql = `
     SELECT iduser FROM users WHERE admin = 1
     `
-    const admins = await execute(sql,[]);
+    const admins = await execute(sql, []);
     if (!admins || admins.length === 0) {
 
         throw new Error("Nenhum administrador disponível");
     }
 
     const randomIndex = Math.floor(Math.random() * admins.length);
-   
+
     return admins[randomIndex].iduser;
+}
+
+async function UpdateUser(iduser, status) {
+    let sql = `UPDATE users SET status = ? WHERE iduser = ?`
+    const updatedUser = await execute(sql, [status, iduser])
+    return updatedUser
+};
+
+async function DeleteUser(iduser) {
+    const sql = "DELETE FROM users WHERE iduser = ?";
+    const result = await execute(sql, [iduser]);
+    return result;
 }
 
 
 
 
 
-export default { Register, List, ListByEmailOrCpf, getRandomAdminId }
+export default { Register, List, ListByEmailOrCpf, getRandomAdminId, UpdateUser,DeleteUser }

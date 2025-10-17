@@ -21,4 +21,13 @@ async function RegisterDocuments(documentsData) {
     return results
 }
 
-export default { RegisterDocuments }
+async function ListUserDocuments(userId) {
+    if (!userId) {
+        throw new Error("O id do usuario é obrigatório.");
+    }
+
+    const results = await repositoryDocuments.ListUserDocuments(userId)
+    return results
+}
+
+export default { RegisterDocuments, ListUserDocuments }
