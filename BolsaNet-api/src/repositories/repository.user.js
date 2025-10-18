@@ -26,7 +26,7 @@ async function Register(fullName, email, password, cpf, cep, city, uf, district,
 }
 
 async function List(filters) {
-    let sql = `SELECT * FROM users`;
+    let sql = `SELECT * FROM users WHERE admin=0 `;
     const params = [];
     const conditions = Object.entries(filters).map(([field, value]) => {
         params.push(value)
@@ -34,10 +34,12 @@ async function List(filters) {
     })
 
     if (conditions.length > 0) {
-        sql += ` WHERE ` + conditions.join(' AND ')
+        sql += `AND `+ conditions.join(' AND ')
     }
 
     sql += ` ORDER BY iduser DESC`;
+
+    console.log(sql)
     const users = await execute(sql, params);
     return users;
 }
