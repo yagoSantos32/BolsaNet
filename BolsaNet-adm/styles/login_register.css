@@ -17,7 +17,7 @@ aside {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 40%;
+    width: 50%;
     height: 100vh;
     background-color: var(--backgound-secondary);
     padding: 20px;

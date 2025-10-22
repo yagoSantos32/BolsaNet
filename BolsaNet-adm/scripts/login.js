@@ -5,7 +5,7 @@ document.querySelector('form').addEventListener('submit', async function (e) {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://localhost:3001/user/login', {
+        const response = await fetch('http://192.168.3.14:3001/user/login', {
             method: 'POST',
             headers: {
 
@@ -17,6 +17,11 @@ document.querySelector('form').addEventListener('submit', async function (e) {
         const result = await response.json();
 
         if (response.ok && result.token) {
+           
+            localStorage.setItem('authToken', JSON.stringify({
+                token:result.token,
+                iduser:result.iduser
+            }));
             window.location.href = 'home.html';
         } else {
             alert(result.error || 'Erro ao fazer login.');

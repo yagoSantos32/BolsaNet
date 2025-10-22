@@ -3,7 +3,9 @@ body {
     background: #f8f4fb;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100vh; 
+    /* overflow: hidden; */
+ 
 }
 
 /* Header fixo no topo */
@@ -65,6 +67,7 @@ header h1 {
 /* Sidebar (aside) */
 aside {
     width: 30%;
+    max-height: 100vh;
     background: #F9F9F9;
     border-right: 2px solid #ddd;
     display: flex;
@@ -73,6 +76,26 @@ aside {
     max-height: calc(100vh - 80px);
     overflow-y: auto;
 }
+
+aside::-webkit-scrollbar {
+  width: 8px; /* largura da barra */
+}
+
+aside::-webkit-scrollbar-track {
+  background: #f0e6f4; /* cor do trilho */
+  border-radius: 4px;
+}
+
+aside::-webkit-scrollbar-thumb {
+  background-color: var(--background); /* cor da alça */
+  border-radius: 4px;
+  border: 2px solid #f0e6f4; /* borda para dar efeito de profundidade */
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+  background-color: var(--background); /* cor ao passar o mouse */
+}
+
 
 aside .contact {
     display: flex;
@@ -101,12 +124,31 @@ main {
     display: flex;
     flex-direction: column;
     background: #fff;
+    
 }
 
 .chat-body {
-    flex: 1;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+   
+    padding: 2rem;
     overflow-y: auto;
+    gap: 10px;
+}
+
+.speech-balloon{
+    align-self: flex-start;
+    background-color: var(--background-speech-balloon);
+    max-width: 80%;
+    padding:20px;
+    border-radius: 0px 20px 20px 20px;
+
+}
+.send{
+    align-self: flex-end;
+    background-color: var(--background-speech-balloon-send);
+    border-radius: 20px 0px 20px 20px;
+
 }
 
 /* onde escreve as mensagem */
@@ -114,7 +156,8 @@ main {
     display: flex;
     width: 80%;
     margin: auto;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    
 }
 .chat-footer button img {
     width: 20px;

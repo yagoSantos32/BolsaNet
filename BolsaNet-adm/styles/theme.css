@@ -1,7 +1,12 @@
  :root {
       --background: #C490DA;
+      --background-speech-balloon:#E7CCF8;
+      --background-speech-balloon-send:#F0E6F4;
       --input: #E7CFF1;
       --button: #B364D3;
+      --button-approved: #00A946;
+      --button-denied: #A90000;
+      --button-unsolicited: #e7db2c;
       --backgound-secondary: #f9f9f9;
       --font: "Roboto", sans-serif;
       --fontColor-highlight: #fff;
