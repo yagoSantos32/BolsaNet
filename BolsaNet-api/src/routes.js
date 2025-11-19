@@ -4,6 +4,7 @@ import { storage } from "./multer.config.js";
 import controllerUsers from "./controllers/controller.users.js";
 import controllerMessage from "./controllers/controller.messages.js";
 import controllerDocuments from "./controllers/controller.documents.js";
+import controllerAdminRequest from "./controllers/controller.adminRequest.js";
 import jwt from "./token.js";
 import multer from "multer";
 
@@ -24,8 +25,13 @@ router.get('/validateAdmin', jwt.ValidateJWT, jwt.onlyAdmin, (req, res) => {
 router.get('/users', jwt.ValidateJWT, jwt.onlyAdmin, controllerUsers.List);
 router.post('/user/register', controllerUsers.Register);
 router.post('/user/login', controllerUsers.Login);
-router.put('/user/update/:iduser/status', jwt.ValidateJWT,jwt.onlyAdmin, controllerUsers.UpdateUser)
+router.put('/user/:iduser/status', jwt.ValidateJWT,jwt.onlyAdmin, controllerUsers.UpdateUser)
 router.delete('/user/:iduser',jwt.ValidateJWT,jwt.onlyAdmin,controllerUsers.DeleteUser)
+
+//controle de administradores 
+router.post('/adminrequest/register', jwt.ValidateJWT,controllerAdminRequest.RegisterRequest);
+router.put('/adminrequest/:iduser/status', jwt.ValidateJWT,jwt.onlyAdmin, controllerAdminRequest.UpdateRequest)
+// router.delete('/adminrequest/:iduser',jwt.ValidateJWT,jwt.onlyAdmin,controllerUsers.DeleteUser)
 
 //rotas para documentos
 router.post('/documents/uploads', jwt.ValidateJWT,uploads.any(),controllerDocuments.RegisterDocuments)
