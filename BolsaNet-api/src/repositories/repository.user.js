@@ -34,7 +34,7 @@ async function List(filters) {
     })
 
     if (conditions.length > 0) {
-        sql += `AND `+ conditions.join(' AND ')
+        sql += `AND ` + conditions.join(' AND ')
     }
 
     sql += ` ORDER BY iduser DESC`;
@@ -77,14 +77,37 @@ async function getRandomAdminId() {
     return admins[randomIndex].iduser;
 }
 
-async function UpdateUser(iduser, status) {
-    let sql = `UPDATE users SET status = ? WHERE iduser = ?`
-    const updatedUser = await execute(sql, [status, iduser])
-    return updatedUser
+
+
+async function UpdateUser(iduser, fieldsToUpdate) {
+  
+
+    const fields = [];
+    const values = [];
+
+    
+    for (const field in fieldsToUpdate) {
+        fields.push(`${field} = ?`);
+        values.push(fieldsToUpdate[field]);
+    }
+
+    if (fields.length === 0) {
+       
+        return { affectedRows: 0 }; 
+    }
+
+    
+    values.push(iduser);
+
+    const sql = `UPDATE users SET ${fields.join(', ')} WHERE iduser = ?`;
+    
+    const updatedUser = await execute(sql, values);
+    return updatedUser;
 };
 
+
 async function DeleteUser(iduser) {
-    const sql = "DELETE FROM users WHERE iduser = ?";
+    let sql = "DELETE FROM users WHERE iduser = ?";
     const result = await execute(sql, [iduser]);
     return result;
 }
@@ -93,4 +116,4 @@ async function DeleteUser(iduser) {
 
 
 
-export default { Register, List, ListByEmailOrCpf, getRandomAdminId, UpdateUser,DeleteUser }
+export default { Register, List, ListByEmailOrCpf, getRandomAdminId, UpdateUser, DeleteUser }

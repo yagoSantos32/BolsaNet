@@ -15,10 +15,20 @@ async function RegisterDocuments(userId, fieldname, filePath, status, notes, upl
 }
 
 async function ListUserDocuments(userId) {
-  let sql = `SELECT fieldname,filePath,status,notes FROM documents WHERE userId = ?`
+  let sql = `
+    SELECT idDocuments, fieldname, filePath, status, notes
+    FROM documents
+    WHERE userId = ?
+  `;
 
   const result = await execute(sql, [userId]);
   return result;
 }
 
-export default { RegisterDocuments, ListUserDocuments }
+async function GetDocumentById(id) {
+  let sql = `SELECT * FROM documents WHERE idDocuments = ?`;
+  const result = await execute(sql, [id]);
+  return result[0];
+}
+
+export default { RegisterDocuments, ListUserDocuments,GetDocumentById }

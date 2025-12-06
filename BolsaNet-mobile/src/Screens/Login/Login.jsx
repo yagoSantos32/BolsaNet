@@ -32,7 +32,7 @@ function Login(props) {
 
         try {
             setLoading(true);
-            const response = await api.post('/user/login', cleanedUser);
+            const response = await api.post('/user/login', cleanedUser,);
             // salvar dados do usuario no storege local 
             if (response.data) {
                 api.defaults.headers.common['Authorization'] = "Bearer " + response.data.token
@@ -44,10 +44,13 @@ function Login(props) {
         } catch (error) {
             setLoading(false);
             await SaveUser({})
-            if (error.response?.data.error)
+            if (error.response?.data.error) {
                 Alert.alert(error.response.data.error.toString());
-            else
+            } else {
+                console.log(error);
                 Alert.alert("ocorreu um erro. tente novamente mais tarde");
+            }
+
         }
 
     };
@@ -55,6 +58,7 @@ function Login(props) {
     async function loadDatas() {
         try {
             const user = await LoadUser()
+        
             if (user.token) {
                 api.defaults.headers.common['Authorization'] = "Bearer " + user.token
                 await api.get('/validateJWT')
@@ -70,6 +74,8 @@ function Login(props) {
 
     useEffect(() => {
         loadDatas()
+       
+
     }, [])
 
 

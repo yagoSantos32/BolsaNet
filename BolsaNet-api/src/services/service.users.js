@@ -50,16 +50,33 @@ async function List(filters) {
 
 }
 
+
 async function UpdateUser(iduser, data) {
-    const { status } = data
-    if (!status) {
-        throw new Error("O campo 'status' é obrigatório.");
+    
+    const allowedFields = ['fullName', 'cep', 'city', 'uf', 'district', 'street', 'number', 'status'];
+    
+    const fieldsToUpdate = {};
+    let hasUpdate = false;
+
+   
+    for (const field of allowedFields) {
+        if (data[field] !== undefined) {
+            fieldsToUpdate[field] = data[field];
+            hasUpdate = true;
+        }
     }
 
-    const result = await repositoryUser.UpdateUser(iduser, status);
+    if (!hasUpdate) {
+        throw new Error("Nenhum campo válido fornecido para atualização.");
+    }
+
+   
+    const result = await repositoryUser.UpdateUser(iduser, fieldsToUpdate);
+    
     if (result.affectedRows === 0) return null;
-    return result
+    return result;
 };
+
 
 async function DeleteUser(iduser) {
     if (!iduser) {

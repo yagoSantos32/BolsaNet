@@ -30,4 +30,8 @@ async function ListUserDocuments(userId) {
     return results
 }
 
-export default { RegisterDocuments, ListUserDocuments }
+async function GetDocumentById(id) {
+    return await repositoryDocuments.GetDocumentById(id);
+}
+
+export default { RegisterDocuments, ListUserDocuments, GetDocumentById }

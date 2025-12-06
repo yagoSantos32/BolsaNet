@@ -10,13 +10,12 @@ async function SendMessage(messageData) {
     }
 
 
-    // obtém a última mensagem enviada pelo usuário logado
     const lastMessage = await repositoryMessages.getLastMessageByUser(senderId);
 
     let finalRecipientId;
 
     if (!lastMessage) {
-        finalRecipientId = await repositoryUser.getRandomAdminId(senderId); // nunca retorna o senderId
+        finalRecipientId = await repositoryUser.getRandomAdminId(senderId); 
     } else {
         const timeSinceLastMessage = (new Date(sentAt) - new Date(lastMessage.sentAt)) / 60000;
 
@@ -24,7 +23,7 @@ async function SendMessage(messageData) {
             // mais de 5 minutos, escolhe um admin aleatório diferente do sender
             finalRecipientId = await repositoryUser.getRandomAdminId(senderId);
         } else {
-            // mantém a lógica, mas **garante que finalRecipientId != senderId**
+           
             if (lastMessage.senderId === senderId) {
                 finalRecipientId = lastMessage.recipientId;
             } else {

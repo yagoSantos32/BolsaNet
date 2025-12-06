@@ -6,7 +6,9 @@ import { colors, font_size } from '../../Constants/theme.js';
 
 // rotas
 import MainTabs from './MainTabs.jsx';
-import Documents from '../Documents/Documents.jsx';
+import UserDocumentsList from '../UserDocumentsList/UserDocumentsList.jsx';
+import BolsaNetInfo from '../BolsaNetInfo/BolsaNetInfo.jsx';
+import ApplyForBenefits from '../ApplyForBenefits/ApplyForBenefits.jsx'
 
 import { AuthContext } from '../../Contexts/auth.js';
 import { useContext } from 'react';
@@ -42,10 +44,9 @@ const {user}=useContext(AuthContext)
     }}>
 
       <Drawer.Screen name='inicio' component={MainTabs} />
-      <Drawer.Screen name={user.fullName} component={Documents} />
-      <Drawer.Screen name='Documentos pessoais' component={Documents} />
-      <Drawer.Screen name='Documentos Escolares ' component={Documents} />
-      <Drawer.Screen name='Oque é esse programa?' component={Documents} />
+      <Drawer.Screen name='Documentos' component={ UserDocumentsList} />
+      <Drawer.Screen name='Enviar Documentos' component={ ApplyForBenefits} />
+      <Drawer.Screen name='Oque é esse programa?' component={BolsaNetInfo} />
     </Drawer.Navigator>
   );
 }

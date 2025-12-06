@@ -34,7 +34,7 @@ function SpeechBubble(props) {
         return (
             <View style={styles.container(props.sent)}>
                 {renderBubble(props.recentMessage, props.recentAverage)}
-                {renderBubble(props.previousMessage, props.previousAverage)}
+           
             </View>
         );
     }

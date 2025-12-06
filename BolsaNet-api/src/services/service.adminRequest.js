@@ -20,7 +20,18 @@ async function UpdateRequest(iduser, data) {
     if (result.affectedRows === 0) return null;
     return result
 };
+async function List(filters) {
+    const validFilters = Object.fromEntries(
+        Object.entries(filters).filter(([_, value]) => value)
+    )
 
+    const users = await repositoryAdminRequest.List(validFilters);
+    return users.map(user => {
+        const { password: _, ...safeUser } = user;
+        return safeUser;
+    });
 
-export default { RegisterRequest,UpdateRequest };
+}
+
+export default { RegisterRequest,UpdateRequest,List };
 

@@ -28,7 +28,7 @@ function DocumentField({ field, value, onSelect }) {
     );
 }
 
-function Documents() {
+function ApplyForBenefits() {
     const [documents, setDocuments] = useState({
         rg: null,
         comprovanteResidencia: null,
@@ -106,7 +106,7 @@ function Documents() {
             Alert.alert("Sucesso", "Upload concluído com sucesso!");
 
         } catch (error) {
-
+console.log(error)
             Alert.alert("Erro", "Não foi possível enviar os documentos. Tente novamente.");
         } finally {
             setLoading(false);
@@ -133,4 +133,5 @@ function Documents() {
     );
 }
 
-export default Documents;
+export default ApplyForBenefits;
+
