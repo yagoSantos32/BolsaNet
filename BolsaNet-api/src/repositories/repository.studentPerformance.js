@@ -18,7 +18,6 @@ async function RegisterStudentPerformance(idusers, yearMonth, studentAverage, me
     return registerPerformance[1][0];
 }
 
-// ✅ NOVO: Auto-registra megashistory
 async function RegisterMegaHistory(idusers, yearMonth, megasGranted, studentAverage) {
     const sql = `INSERT INTO megashistory (
         idusers, yearMonth, megasGranted, studentAverage
@@ -30,7 +29,6 @@ async function RegisterMegaHistory(idusers, yearMonth, megasGranted, studentAver
     return await execute(sql, [idusers, yearMonth, megasGranted, studentAverage]);
 }
 
-// resto das funções iguais...
 async function UpdateStudentPerformance(idusers, yearMonth, studentAverage, metGoal) {
     let sql = `
         UPDATE studentperformance
@@ -65,8 +63,7 @@ async function List(filters = {}) {
     
     sql += ` ORDER BY sp.yearMonth DESC, sp.idusers DESC`;
     
-    console.log('🔍 SQL:', sql);
-    console.log('📊 Params:', params);
+ 
     
     const performances = await execute(sql, params);
     return performances[0];
@@ -87,7 +84,7 @@ async function ListByUser(idusers) {
 
 export default { 
     RegisterStudentPerformance, 
-    RegisterMegaHistory,  // ✅ NOVO
+    RegisterMegaHistory,  
     UpdateStudentPerformance, 
     GetByCompositeKey, 
     List, 
