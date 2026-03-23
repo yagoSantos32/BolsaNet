@@ -2,16 +2,14 @@ import studentPerformanceRepository from '../repositories/repository.studentPerf
 import serviceBenefitPeriod from '../services/service.benefitPeriod.js';
 
 async function RegisterStudentPerformance(data) {
-    // ✅ PARSE IMEDIATO
+    //  PARSE IMEDIATO
     const parsedUsersId = parseInt(data.usersId);
     const parsedAverage = parseFloat(data.studentAverage);
     const yearMonth = data.yearMonth;
     const metGoal = data.metGoal;
+  
     
-    console.log('📥 Frontend data:', data);
-    console.log('🔢 Parsed data:', { parsedUsersId, yearMonth, parsedAverage, metGoal });
-    
-    // ✅ VALIDAÇÃO com NUMBERS
+    //  VALIDAÇÃO com NUMBERS
     if (!parsedUsersId || !yearMonth || isNaN(parsedAverage) || metGoal === undefined) {
         throw new Error('Todos os campos são obrigatórios e devem ser números válidos');
     }
@@ -20,9 +18,9 @@ async function RegisterStudentPerformance(data) {
         throw new Error('Média deve estar entre 0 e 10');
     }
     
-    // ✅ USA NUMBERS no repository
+    //  USA NUMBERS no repository
     const existing = await studentPerformanceRepository.GetByCompositeKey(parsedUsersId, yearMonth);
-    if (existing) { // ✅ Remove .length - aceita objeto ou array
+    if (existing) { //  Remove .length - aceita objeto ou array
         throw new Error(`Registro já existe para usuário ${parsedUsersId} e mês ${yearMonth}`);
     }
     
@@ -43,8 +41,7 @@ async function RegisterStudentPerformance(data) {
         if (metGoal) {
             megasGranted = baseMegas + (parsedAverage * megasPerPoint);
         }
-        
-        console.log(`📊 Cálculo: média=${parsedAverage} baseMegas=${baseMegas} megasPerPoint=${megasPerPoint} total=${megasGranted}`);
+    
         
         // 3. REGISTRA megashistory
         await studentPerformanceRepository.RegisterMegaHistory(
